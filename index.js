@@ -17,6 +17,25 @@ app.use(
 
 app.use(express.json());
 
+app.post("/register/save", (req, res) => {
+  const { title, pageqty } = req.body;
+
+  const query = `INSERT INTO books (title, pageqty)
+                 VALUES ('${title}', '${pageqty}')
+  `;
+  conn.query(query, (error) => {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    res.redirect("/");
+  });
+});
+
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
 app.get("/", (req, res) => {
   res.render("home");
 });
