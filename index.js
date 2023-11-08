@@ -37,7 +37,17 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.render("home");
+  const sql = 'SELECT * FROM books'
+
+  conn.query(sql, (error, data) => {
+    if (error) {
+      return console.log(error)
+    }
+    const books = data
+
+    res.render("home", {books});
+  })
+  
 });
 
 const conn = mysql.createConnection({
