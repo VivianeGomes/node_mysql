@@ -17,6 +17,22 @@ app.use(
 
 app.use(express.json());
 
+app.post("/delete", (req, res)=>{
+  const { id } = request.body
+
+  const sql = `
+    DELETE FROM books
+    WHERE id = ${id}
+  `
+
+  conn.query(sql, (error) => {
+    if (error) {
+      return console.log(error)
+    }
+    Response.redirect("/")
+  })
+})
+
 app.post("/register/save", (req, res) => {
   const { title, pageqty } = req.body;
 
